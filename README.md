@@ -11,14 +11,19 @@ However, the downside of Dual Energy X-ray imaging is that the patient is (usual
 The images used in the dataset were Digitally Reconstructed Radiographs (DRRs) created from a 3D CT scan image projected onto different planes. These are similar to X-ray images in most aspects; however, it does remain to be seen how well the model generalizes to actual X-ray images.
 
 The dataset consisted of ~700 images of Single Energy X-rays and ~1400 Dual Energy X-rays. These were obtained from a single patient (which is another factor affecting the generalization capabilityo of the model).
+
+
+| Single Energy X-ray  | Dual Energy X-ray (bone) | 
+|---------------|---------------|
+|![](src/evaluation/visualizations/outputs/bone/0_15_90.npy_single_energy_alt.png?)|![](src/evaluation/visualizations/outputs/bone/0_15_90.npy_bone_real.png)|
+|![](src/evaluation/visualizations/outputs/bone/30_30_30.npy_single_energy_alt.png?)|![](src/evaluation/visualizations/outputs/bone/30_30_30.npy_bone_real.png)|
+
 ## Model Architecture
-The model architecture is largely inspired from [pix2pix](https://arxiv.org/pdf/1611.07004.pdf) paper. It comprises of 2 parts - the generator model and the discriminator model. The idea is to jointly train the generator to create realistic images and to train discriminator to differentiate between real images and generated images.
+The model architecture is largely inspired from [pix2pix](https://arxiv.org/pdf/1611.07004.pdf) paper. It comprises of 2 parts - the generator model and the discriminator model. The idea is to train the generator to create realistic images and to train discriminator to differentiate between real images and generated images.
 
 The generator model is a Convolutional Neural Network similar to [U-Net](https://arxiv.org/abs/1505.04597) which inputs a Single Energy (SE) X-ray image and (tries to) generate its Dual Energy (DE) counterpart. 
 
 These two images (SE + fake DE) are paired and fed to the discriminator model. The discriminator model also recieves pairs of ground truth (SE + real DE) images. The discriminator tries to predict which pairs are real and which pairs are fake. The discriminator model design is inpired from [PatchGAN](https://arxiv.org/abs/1604.04382) architecture. 
-
-
 
 ![Model Architecture](combined4.png?raw=true "Model Architecture")
 
